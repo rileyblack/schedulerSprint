@@ -51,6 +51,11 @@ int main() {
         FILE * file_ptr = NULL; //pointer to file for reading/writing purposes
         char character; //character used to read in the file
 
+		/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		* COUNTING QUEUES
+		*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		*/
+
         int num_of_queues = 0; //variable to hold the total number of queues read from input file
 
         file_ptr = fopen("cpu_scheduling_input_file.txt", "r"); //open specified input text file for reading for queues
@@ -71,6 +76,11 @@ int main() {
 
         num_of_queues = num_of_queues/2; //divided by 2 since HALF of the 'q's found were from tq (time quatum)
 
+		/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		* COUNTING PROCESSES PER QUEUE
+		*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		*/
+
         int *  queue_process_count = malloc(sizeof(int) * num_of_queues); //create an integer array capable of holding as many integers
                                                                           //as number of queues that were found, so that each index can
                                                                           //then be filled with the number of processes in that queue
@@ -81,7 +91,6 @@ int main() {
                                                                           //to be put into queue 1, etc. for each queue
 
         int process_counter = 0; //variable to hold the total number of processes read from current queue in question from input file
-
         int queue_counter = 0; //variable to keep track of which queue the processes are currently being counted for from input file
 
         file_ptr = fopen("cpu_scheduling_input_file.txt", "r"); //reopen specified input text file for reading, this time for processes
@@ -118,9 +127,14 @@ int main() {
         }
         fclose(file_ptr); //once the file has been depleted, we should now have the number of processes to be put in each queue
 
+		/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		* READING/FORMATTING PROCESS/QUEUE INFORMATION INTO CREATED DATA STRUCTURES
+		*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		*/
+
         Process ** queues = malloc(sizeof(Process *) * num_of_queues);  //create an array of process structure arrays where queues[0][0] is the first
-                                                                        //in the first queue, queues[0][1] is the second process in the first queue
-                                                                        //queues[1][0] is the first process in the second queue and so on.
+                                                                        //process in the first queue, queues[0][1] is the second process in the first
+                                                                        //queue, queues[1][0] is the first process in the second queue and so on.
         int i;
         for(i = 0; i < num_of_queues; i++){ //for each queue
                 queues[i] = malloc(sizeof(Process) * queue_process_count[i]); //allocate the proper amount of memory for each queue based on number of
@@ -226,6 +240,11 @@ int main() {
         }
         fclose(file_ptr); //close the file for good, we should now have stored all relevant info
 
+		/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		* TESTING SCHEDULING ALGORITHMS WITH PROCESS FILLED QUEUES
+		*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		*/
+
         file_ptr = fopen("cpu_scheduling_output_file.txt", "w"); // write only
 
         // test for files not existing.
@@ -286,9 +305,7 @@ void sjf(Process array[], int size, FILE * file_ptr){
         for(i = 0; i < size; i++){ //loop to populate new array
                 temp_array[i] = array[i];
         }
-        /*
-         * Generic Selection Sort algorithm used to order processes based on burst time
-         */
+         //Generic Selection Sort algorithm used to order processes based on burst time
         int j, position;
         Process swap; //process struct to be used to rearrange
         for (i = 0; i < (size - 1); i++){
@@ -304,7 +321,6 @@ void sjf(Process array[], int size, FILE * file_ptr){
                 }
         }
         //by this point temp_array is ordered smallest to largest burst time
-
         printf("Order of selection by CPU:\n");
         fprintf(file_ptr, "Order of selection by CPU:\n");
 

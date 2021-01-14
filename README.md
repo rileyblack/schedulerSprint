@@ -1,5 +1,5 @@
 # schedulerSprint
-Linux-based C environment facilitating an efficiency competition between common CPU process scheduling methodologies. Algorithms are evaluated via process-filled queues based upon user-designed scenario files of varying size/complexity, and results are published to a summary report.  
+Linux-based C environment facilitating an efficiency competition between common CPU process scheduling methodologies. Algorithm speeds are evaluated via process-filled queues which are constructed by parsing user-designed scenario files of varying size/complexity. Results are published to a summary report.  
 
 
 ## Practical Take-Away Experience
